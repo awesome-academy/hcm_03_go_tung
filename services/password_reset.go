@@ -2,9 +2,9 @@ package services
 
 import (
 	"fmt"
-	"hcm_03_go_tung/config"
-	"hcm_03_go_tung/models"
-	"hcm_03_go_tung/utils"
+	"foods-drinks-app/config"
+	"foods-drinks-app/models"
+	"foods-drinks-app/utils"
 	"net/smtp"
 	"regexp"
 	"strings"

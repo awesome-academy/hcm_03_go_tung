@@ -1,9 +1,10 @@
 package repository
 
 import (
-	"HCM_03_GO_TUNG/models"
 	"errors"
+	"foods-drinks-app/models"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -57,7 +58,7 @@ func (r *userRepository) FindByEmail(email string, preloads ...string) (*models.
 	}
 
 	query := r.db.Where("email = ?", email)
-	
+
 	// Thêm preload nếu có
 	for _, preload := range preloads {
 		query = query.Preload(preload)

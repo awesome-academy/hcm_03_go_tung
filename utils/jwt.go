@@ -1,6 +1,10 @@
 package utils
 
 import (
+<<<<<<< Updated upstream
+=======
+	"errors"
+>>>>>>> Stashed changes
 	"os"
 	"time"
 
@@ -50,15 +54,36 @@ func ValidateRefreshToken(tokenString string) (string, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if claims["type"] != "refresh" {
-			return "", jwt.ErrTokenMalformed
+			return "", errors.New("invalid token type")
 		}
 		userID, ok := claims["user_id"].(string)
 		if !ok {
-			return "", jwt.ErrTokenMalformed
+			return "", errors.New("invalid token claims")
 		}
 		return userID, nil
 	}
-	return "", jwt.ErrTokenMalformed
+	return "", errors.New("invalid token")
+}
+
+// ValidateJWT kiểm tra JWT và trả về userID nếu hợp lệ
+func ValidateJWT(tokenString string) (string, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrSignatureInvalid
+		}
+		return jwtSecret, nil
+	})
+	if err != nil {
+		return "", err
+	}
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		userID, ok := claims["user_id"].(string)
+		if !ok {
+			return "", errors.New("invalid token claims")
+		}
+		return userID, nil
+	}
+	return "", errors.New("invalid token")
 }
 
 // ValidateJWT kiểm tra JWT và trả về userID nếu hợp lệ

@@ -1,11 +1,11 @@
 package services
 
 import (
-	"HCM_03_GO_TUNG/models"
-	"HCM_03_GO_TUNG/repository"
-	"HCM_03_GO_TUNG/utils"
 	"errors"
 	"fmt"
+	"foods-drinks-app/models"
+	"foods-drinks-app/repository"
+	"foods-drinks-app/utils"
 	"strings"
 	"time"
 
