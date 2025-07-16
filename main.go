@@ -1,16 +1,17 @@
 package main
 
 import (
-    "database/sql"
-    _ "github.com/lib/pq"
+	"foods-drinks-app/config"
+	"foods-drinks-app/models"
+	"log"
 )
 
 func main() {
-    db, err := sql.Open("postgres", "postgres://username:password@localhost:5432/dbname?sslmode=disable")
-    if err != nil {
-        panic(err)
-    }
-    defer db.Close()
+	config.ConnectDatabase()
 
-    // Your router setup, routes, etc.
+	if err := models.Migrate(); err != nil {
+		log.Fatalf("Migration failed: %v", err)
+	}
+
+	// Your router setup, routes, etc.
 }
